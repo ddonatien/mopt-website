@@ -1,6 +1,6 @@
-# Garfield website
+# mopt website
 
-This repository contains the source code for the Garfield paper [website](https://ddonatien.github.io/garfield-website/).  
+This repository contains the source code for the mopt paper [website](https://ddonatien.github.io/mopt-website/).  
 Forked from the [Nerfies website](https://nerfies.github.io).
 
 # Website License
