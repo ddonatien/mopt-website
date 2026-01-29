@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description"
         content="Disentangling perception and reasoning for improving data efficiency in learning cloth manipulation without demonstrations">
-  <meta name="keywords" content="NeRF">
+  <meta name="keywords" content="RL, Cloth Manipulation, Data Efficiency, Robotics">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Disentangling perception and reasoning for improving data efficiency in learning cloth manipulation without demonstrations</title>
 
@@ -62,10 +62,10 @@
             <span class="author-block">
               <a href="https://www.iit.it/people-details/-/people/donatien-delehelle">Donatien Delehelle</a><sup>1,2</sup>,</span>
             <span class="author-block">
-              <a href="https://www.iit.it/people-details/-/people/darwin-caldwell">Darwin Caldwell</a><sup>2</sup>,</span>
-            <span class="author-block">
               <a href="https://feichenlab.com/members/">Fei Chen</a><sup>3</sup>,
             </span>
+            <span class="author-block">
+              <a href="https://www.iit.it/people-details/-/people/darwin-caldwell">Darwin Caldwell</a><sup>2</sup>,</span>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -87,7 +87,7 @@
                 </a>
               </span> -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2410.05038"
+                <a href="https://arxiv.org/abs/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -107,7 +107,7 @@
               </span> -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/ddonatien/GARField"
+                <a href="https://github.com/ddonatien/mopt_cloth"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -127,13 +127,15 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/expes.mp4"
                 type="video/mp4">
-      </video> -->
-      <h2 class="subtitle has-text-centered">
+        <source src="./static/videos/expes.webm"
+                type="video/webm">
+      </video>
+      <!-- <h2 class="subtitle has-text-centered">
         <span class="dnerf">GARField (Garment Attached Radiance Field)</span> addresses the data problem in garment manipulation through learnable, viewpoint-free data generation.
-      </h2>
+      </h2> -->
     </div>
   </div>
 </section>
@@ -146,37 +148,34 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-           We present GARField (Garment Attached Radiance Field), the
-           first differentiable rendering architecture, to our knowledge,
-           for data generation from simulated states stored as triangle
-           meshes.
+          Cloth manipulation is an ubiquitous task in everyday life,
+          but it is still an open challenge for robotics. The difficulties in
+          developing cloth manipulation policies are attributed to the high-dimensional
+          state space, complex dynamics, and high propensity to self-occlusion displayed by fabrics.
+          As analytical methods haven’t been able to provide robust and general manipulation
+          policies, reinforcement learning (RL) is seen as a promising approach to these problems.
           </p>
           <p>
-           While humans intuitively manipulate garments
-           and other textile items swiftly and accurately, it is a significant
-           challenge for robots. A factor crucial to human performance
-           is the ability to imagine, a priori, the intended result of the
-           manipulation intents and hence develop predictions on the garment pose.
-           That ability allows us to plan from highly obstructed
-           states, adapt our plans as we collect more information and react
-           swiftly to unforeseen circumstances. Conversely, robots struggle
-           to establish such intuitions and form tight links between plans
-           and observations.
+          However, in order to address the large state space and the complex dynamics,
+          data-based methods usually rely on big models and long training times.
+          The inferred computational cost significantly hampers the development and adoption
+          of these methods.
+          Additionally, because of the challenge of robust state estimation,
+          garment manipulation policies usually adopt an end-to-end learning approach
+          with workspace images as input. While this approach allows for a conceptually
+          trivial sim-to-real transfer via real-world fine-tuning, it also impairs a
+          significant computational cost on the training on agents with a very
+          lossy representation of the environment state. 
           </p>
           <p>
-           We can partly attribute this to the high
-           cost of obtaining densely labelled data for textile manipulation,
-           both in quality and quantity. The problem of data collection
-           is a long-standing issue in data-based approaches to garment
-           manipulation. As of today, generating high-quality and labelled
-           garment manipulation data is mainly attempted through advanced
-           data capture procedures that create a simplified state
-           estimations from real-world observations. 
-          </p>
-          <p>
-           However, this work
-           proposes a novel approach to the problem by generating
-           real-world observations from object states.
+          This paper aims at questioning this common design choice by exploring an efficient
+          and modular approach to RL for cloth manipulation. We show that through careful design
+          choices, we can significantly reduce model size and training time when learning in
+          simulation.
+          Additionally, we showcase how our optimal simulation-based model can be transferred to
+          the real-word. We evaluate our work on the Softgym benchmark and achieve a significant
+          performance improvements over available baselines on our task, with a significantly
+          smaller model.
           </p>
         </div>
       </div>
@@ -201,7 +200,7 @@
 <section class="section">
   <div class="container is-max-desktop">
 
-    <div class="columns is-centered">
+    <!-- <div class="columns is-centered">
       <div class="column">
         <div class="content">
           <h2 class="title is-3">Video generation</h2>
@@ -222,11 +221,11 @@
           <img src="./static/images/image_gen.png" class="reposed_image" alt="Image of re-posed mesh" width="320px"/>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Matting. -->
 
     <!-- Overview. -->
-    <div class="columns is-centered">
+    <!-- <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Overview</h2>
 
@@ -253,7 +252,7 @@
         </div>
         <br/>
       </div>
-    </div>
+    </div> -->
 
     <!-- Concurrent Work. -->
     <!-- <div class="columns is-centered">
@@ -289,12 +288,12 @@
 <section class="section" id="BibTeX">
  <div class="container is-max-desktop content">
    <h2 class="title">BibTeX</h2>
-   <pre><code>@article{delehelle2024garfield,
+   <!-- <pre><code>@article{delehelle2024garfield,
   title={GARField: Addressing the visual Sim-to-Real gap in garment manipulation with mesh-attached radiance fields},
   author={Delehelle, Donatien and Caldwell, Darwin G and Chen, Fei},
   journal={arXiv preprint arXiv:2410.05038},
   year={2024}
-}</code></pre>
+}</code></pre> -->
 <!--  </div> -->
 <!--</section> -->
 
